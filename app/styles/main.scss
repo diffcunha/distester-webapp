@@ -1,0 +1,111 @@
+$icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+
+// bower:scss
+@import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
+// endbower
+
+
+$indicator-badge-width: 50px;
+
+.indicator-list {
+	@extend .list-group;
+
+	margin: 0px;
+}
+
+.indicator {
+	@extend .list-group-item;
+
+	padding: 0px;
+}
+
+.indicator-badge {
+	@extend .pull-right;
+	
+	width: $indicator-badge-width;
+	
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+	
+	background-color: whitesmoke;
+	padding: 10px 15px;
+
+	border-left: 1px solid #dddddd;
+}
+
+.indicator-container {
+	@extend .row;
+
+	margin: 0px;
+	padding: 10px 0px;
+	padding-right: $indicator-badge-width;
+
+}
+
+.indicator-body {
+	@extend .indicator-container;
+
+	.indicator-heading {
+		@extend .col-sm-6;
+		@extend .col-md-5;
+		@extend .col-lg-4;
+
+		padding-top: 10px;
+		padding-bottom: 10px;
+
+		span {
+			@extend .h4;
+
+			margin-bottom: 0px;
+		}
+
+		a {
+			@extend .small;
+		}
+
+	}
+
+	.indicator-parameter-list {
+		@extend .col-sm-6;
+		@extend .col-md-7;
+		@extend .col-lg-8;
+
+		padding-top: 6px;
+
+		text-align: right;
+
+		.indicator-parameter {
+			display: inline-block;
+			width: 112px;
+			margin-left: 10px;
+
+			.input-group .input-group-addon {
+				width: 55px;
+			}
+
+		}
+
+		.indicator-parameter:first-child {
+			margin-left: 0px;
+		}
+
+	}
+
+}
+
+.indicator-footer {
+	@extend .indicator-container;
+	
+	border-top: 1px solid #dddddd;
+
+	.indicator-parameter-option {
+		@extend .row;
+
+		margin: 0px;
+		padding: 3px 0px;
+	}
+
+}
+

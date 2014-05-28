@@ -1,0 +1,197 @@
+
+<h1 class="page-header">distester.io</h1>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-3">
+                <ui-select ng-model="$parent.ticker">
+                    <ui-select-match placeholder="Ticker">{{ $select.selected.name }}</ui-select-match>
+                    <ui-select-choices repeat="ticker in tickers">
+                        <div ng-bind-html="ticker.name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="col-sm-3">
+                <ui-select ng-model="$parent.frequency">
+                    <ui-select-match placeholder="Frequency">{{ $select.selected.name }}</ui-select-match>
+                    <ui-select-choices repeat="frequency in frequencies">
+                        <div ng-bind-html="frequency.name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" is-open="beginDateOpened" ng-model="beginDate" ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="beginDateOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" is-open="endDateOpened" ng-model="endDate" ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="endDateOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <amcharts ng-model="candles" events="events" />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="indicator-list">
+                    <div class="indicator" ng-repeat="indicator in backtest.indicators">
+                        <div class="indicator-badge"></div>
+                        <div class="indicator-body">
+                            <div class="indicator-heading">
+                                <span>{{ indicator.name }}</span>
+                                <a ng-click="indicator.notCollapsed = !indicator.notCollapsed">Show options</a>
+                            </div>
+                            <div class="indicator-parameter-list">
+                                <div class="indicator-parameter" ng-repeat="parameter in indicator.parameters">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon">{{ parameter.name }}</span>
+                                        <input class="form-control" type="text" min="0.01" step="0.01" ng-model="parameter.value">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="indicator-footer" collapse="!indicator.notCollapsed">
+
+                                <div class="indicator-parameter-option" ng-repeat="parameter in indicator.parameters">
+                                    <div class="col-sm-4">
+                                        {{ parameter.name }}
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div ui-slider="{range: true}" min="0" max="100" ng-model="demoVals.sliderExample1"></div>
+                                    </div>
+                                </div>
+
+
+                            <!--
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>Min</th>
+                                        <th>Max</th>
+                                        <th>Step</th>
+                                    <tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="parameter in indicator.parameters">
+                                        <td>{{ parameter.name }}</td>
+                                        <td><input type="number" class="form-control input-sm" ng-model="parameter.min"></td>
+                                        <td><input type="number" class="form-control input-sm" ng-model="parameter.max"></td>
+                                        <td><input type="number" class="form-control input-sm" ng-model="parameter.step"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            -->
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--
+                <div class="panel panel-default" ng-repeat="indicator in backtest.indicators">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h4>{{ indicator.name }} <small ng-click="indicator.notCollapsed = !indicator.notCollapsed">Show options</small></h4>
+                            </div>
+                            <div class="col-sm-8" style="margin-top: 4px;">
+                                <div ng-repeat="parameter in indicator.parameters" style="display: inline-block; width: 100px; margin-right: 10px;">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon" style="width: 55px;">{{ parameter.name }}</span>
+                                        <input class="form-control" type="text" min="0.01" step="0.01" ng-model="parameter.value">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" collapse="!indicator.notCollapsed">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>Min</th>
+                                    <th>Max</th>
+                                    <th>Step</th>
+                                <tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="parameter in indicator.parameters">
+                                    <td>{{ parameter.name }}</td>
+                                    <td><input type="number" class="form-control input-sm" ng-model="parameter.min"></td>
+                                    <td><input type="number" class="form-control input-sm" ng-model="parameter.max"></td>
+                                    <td><input type="number" class="form-control input-sm" ng-model="parameter.step"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                -->
+
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <ui-select ng-model="$parent.indicator">
+                            <ui-select-match placeholder="Indicator">{{ $select.selected.name }}</ui-select-match>
+                            <ui-select-choices repeat="indicator in indicators">
+                                <div ng-bind-html="indicator.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary btn-block" ng-click="addIndicator(indicator)">Add Indicator</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>USD Balance</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <input class="form-control" placeholder="USD Balance" type="number" min="0.01" step="0.01">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>BTC Balance</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="currency" class="form-control" placeholder="USD Balance">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary btn-block" ng-click="run()">Run</button>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2>Total profit:</h2>
+                <p>{{ profit | currency : "$" }}</p>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
